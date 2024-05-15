@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styleshome.css">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Cat wit hat</title>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="js.js"></script>
+<style>
+    /* Add the new styles here */
+    .menu-icon {
+        font-size: 1.5em;
+        cursor: pointer;
+        display: none;
+        z-index: 1000; /* Ensure the menu icon appears above other elements */
+    }
+
+    @media screen and (max-width: 700px) {
+        .navbar {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%; /* Ensure the menu covers the full width */
+            background-color: #111729; /* Add background color for visibility */
+            z-index: 999; /* Ensure the menu appears above other elements */
+        }
+
+        .navbar.active {
+            display: flex;
+        }
+
+        .menu-icon {
+            display: block;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+        }
+
+        ul {
+            width: 100%;
+            text-align: center;
+            padding: 0; /* Remove default padding */
+        }
+
+        li {
+            margin: 15px 0;
+            list-style: none; /* Remove default list styling */
+        }
+
+        .nav-link {
+            text-decoration: none; /* Remove underline from links */
+            color: #FFFFFF; /* Set link color */
+            display: block;
+            padding: 10px;
+        }
+    }
+
+    /* Additional styles for image upload and drag */
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        text-align: center;
+    }
+
+    #uploaded-photo-container {
+        max-width: 600px;
+        margin: 20px auto;
+        border: 2px dashed #ccc;
+        position: relative;
+    }
+
+    #uploaded-photo {
+        display: none;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    #drag-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    #drag-image {
+        width: 200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: move;
+        z-index: 1;
+    }
+            /* Change color of filename to white */
+            input[type="file"] {
+            color: white;
+    }   
+
+    /* Style for WIT Contract Address */
+    .wit-address {
+        font-size: 0.8em;
+        margin-top: 20px;
+    }
+
+    .wit-address p {
+        margin: 5px 0;
+    }
+
+    .copy-button {
+        font-size: 0.8em;
+        padding: 5px 10px;
+        border: 1px solid #000;
+        background-color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .copy-button:hover {
+        background-color: #ccc;
+    }        
+
+    .seo-section {
+        margin: 30px 0;
+    }
+
+    .seo-section h2 {
+        font-size: 1.5em;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+
+    .seo-section p {
+        font-size: 1em;
+        line-height: 1.6;
+        color: #ffffff;
+    }
+
+        /* Media query for screens under 700px (mobile) */
+        @media screen and (max-width: 700px) {
+        .seo-section h2 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .seo-section p {
+            font-size: 0.9em;
+        }
+
+        .container {
+            padding: 0 10px; /* Add padding on left and right */
+        }
+    }
+
+    .Solana-bridge a {
+        color: #ffcc00; /* Change color to ffcc00 */
+
+    }
+    
+    /* Style for embedded chart container */
+    .chart-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto;
+    }
+
+    /* Ensure the chart fits within its container */
+    iframe {
+        width: 100%;
+        height: 400px; /* Adjust height as needed */
+        border: none; /* Remove border around iframe */
+    }
+    
+
+</style>
+</head>
+<body>
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+<nav class="navbar" id="navbar">
+  <ul>
+    <li class="home">
+      <a href="http://catwithat.xyz" class="nav-link home-link">Home</a>
+    </li>
+    <li class="purchase">
+      <a href="https://dexscreener.com/Solana/0x6da0dd728dbb76e7ffb7b5b90b43eeeedde99759" class="nav-link">Purchase $WIT</a>
+    </li>
+    <li class="games">
+        <a href="http://catwithat.xyzwitrunner" class="nav-link">Games</a>
+      </li>
+  </ul>
+</nav>
+
+<h1 class="home-title">
+  <span>I erm</span>
+  <span>Cat wit hat</span>
+</h1>
+
+<!-- WIT Contract Address Section -->
+<div class="wit-address" style="font-size: 1.2em; color: white; text-align: center;">
+    <p style="margin-bottom: 10px;">WIT Contract Address:<br><span id="witAddress" style="font-size: 1em;">0x6DA0DD728DbB76e7ffb<br>7B5b90B43eeeedde99759</span></p>
+    <button class="copy-button" style="font-size: 1em; padding: 5px 10px; border: 1px solid #fff; background-color: transparent; color: #fff; cursor: pointer; transition: background-color 0.3s ease; margin-bottom: 10px;" onclick="copyAddress()">Copy</button>
+</div>
+
+<img src="homeimages/logo1.png" alt="Image Description" class="floating-image" />
+
+<div class="buttonshome">
+  <button class="twitter-button" onclick="window.location.href='https://twitter.com/catwithat'">Twitter</button>
+  <button class="telegram-button" onclick="window.location.href='https://t.me/catwithat'">Telegram</button>
+  <button class="dexcreener-button" onclick="window.location.href='https://www.dextools.io/app/en/Solana/pair-explorer/0xb01c41c73cc45be7bcd898b506135bcd79ddee03?t=1715302002182'">Dextools</button>
+  <button class="buy-now-button" onclick="window.location.href='https://app.uniswap.org/swap?outputCurrency=0x6DA0DD728DbB76e7ffb7B5b90B43eeeedde99759&chain=Solana'">Buy $WIT</button>
+</div>
+
+<h1 class="home-title">
+    <span>Put on</span>
+    <span>the hat</span>
+</h1>
+
+<div class="container">
+    <input type="file" id="userPhotoInput" accept="image/*">
+    <div id="uploaded-photo-container">
+        <img id="uploaded-photo" src="#" alt="Uploaded Photo">
+        <div id="drag-overlay">
+            <img id="drag-image" src="png/cathat.png" alt="Drag Image">
+        </div>
+    </div>
+    <div class="buttonshome">
+        <button onclick="rotateLeft()">Rotate Left</button>
+        <button onclick="rotateRight()">Rotate Right</button>
+        <button onclick="scaleUp()">Scale Up</button>
+        <button onclick="scaleDown()">Scale Down</button>
+    </div>
+</div>
+
+<!-- SEO Optimized Content Sections -->
+<div class="container">
+    <div class="seo-section">
+        <h2>Cat wit hat (WIT) - Memecoin on Solana Chain</h2>
+        <p>
+            Learn about Cat wit hat ($WIT), its insanely unique community and the innovative ecosystem it operates in. This Solana memecoin is changing the game and not stopping until we're at the top.
+        </p>
+    </div>
+
+    <div class="seo-section">
+        <h2>How to Buy and Transfer ETH on Solana</h2>
+        <p>
+            Transferring ETH from Ethereum to Solana Chain is quick and easy. Simply visit <a href="https://bridge.Solana.org/deposit" class="seo-section" style="color: #ffcc00;">Solana Bridge</a>, connect your wallet then deposit ETH and submit the transfer!
+        </p>
+    </div>
+
+    <div class="seo-section">
+        <h2>Solana Memecoins: ERC20 Tokens on Solana Chain</h2>
+        <p>
+            Solana memecoins are ERC20 native tokens created on the Solana Chain, a Layer 2 (L2) solution developed by leading crypto exchange <a href="https://coinSolana.com" class="seo-section" style="color: #ffcc00;">CoinSolana</a>. Solana Chain is designed to significantly reduce gas fees for transfers, making it an ideal platform for trading any crypto at a low cost.
+        </p>
+    </div>
+</div>
+
+<!-- Embedded Chart Section -->
+<div class="chart-container">
+    <iframe id="dextools-widget" title="DEXTools Trading Chart" width="500" height="400" src="https://www.dextools.io/widget-chart/en/Solana/pe-light/0xb01c41c73cc45be7bcd898b506135bcd79ddee03?theme=light&chartType=2&chartResolution=30&drawingToolbars=false"></iframe>
+</div>
+
+<div class="disclaimer">
+    <p>
+        $WIT is just a ERC-20 memecoin on Solana with no intrinsic value or expectation
+        of financial return. It’s built by a passionate set of contributors
+        solely for entertainment and community engagement purposes.
+    </p>
+</div>
+
+<!-- Add this script before the closing tag -->
+<script>
+    document.getElementById('userPhotoInput').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            const preview = document.getElementById('uploaded-photo');
+            preview.src = event.target.result;
+            preview.style.display = 'block';
+            document.getElementById('drag-overlay').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    const dragImage = document.getElementById('drag-image');
+    let isDragging = false;
+    let initialX, initialY;
+    let rotation = 0;
+    let scale = 1;
+
+    dragImage.addEventListener('mousedown', startDragging);
+    dragImage.addEventListener('touchstart', startDragging);
+
+    function startDragging(e) {
+        e.preventDefault();
+        isDragging = true;
+        initialX = e.clientX || e.touches[0].clientX;
+        initialY = e.clientY || e.touches[0].clientY;
+
+        document.addEventListener('mousemove', dragImageHandler);
+        document.addEventListener('touchmove', dragImageHandler);
+        document.addEventListener('mouseup', endDragging);
+        document.addEventListener('touchend', endDragging);
+    }
+
+    function dragImageHandler(e) {
+        if (isDragging) {
+            const x = (e.clientX || e.touches[0].clientX) - initialX;
+            const y = (e.clientY || e.touches[0].clientY) - initialY;
+
+            dragImage.style.left = `${dragImage.offsetLeft + x}px`;
+            dragImage.style.top = `${dragImage.offsetTop + y}px`;
+
+            initialX = e.clientX || e.touches[0].clientX;
+            initialY = e.clientY || e.touches[0].clientY;
+        }
+    }
+
+    function endDragging() {
+        isDragging = false;
+        document.removeEventListener('mousemove', dragImageHandler);
+        document.removeEventListener('touchmove', dragImageHandler);
+        document.removeEventListener('mouseup', endDragging);
+        document.removeEventListener('touchend', endDragging);
+    }
+
+    function rotateLeft() {
+        rotation -= 15;
+        dragImage.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+    }
+
+    function rotateRight() {
+        rotation += 15;
+        dragImage.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+    }
+
+    function scaleUp() {
+        scale += 0.1;
+        dragImage.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+    }
+
+    function scaleDown() {
+        if (scale > 0.1) {
+            scale -= 0.1;
+            dragImage.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+        }
+    }
+
+    function toggleMenu() {
+        const navbar = document.getElementById("navbar");
+        navbar.classList.toggle("active");
+    }
+
+    function copyAddress() {
+        const witAddress = document.getElementById('witAddress');
+        const tempInput = document.createElement('input');
+        tempInput.value = witAddress.innerText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        alert('Address copied to clipboard!');
+    }
+</script>
+</body>
+</html>
